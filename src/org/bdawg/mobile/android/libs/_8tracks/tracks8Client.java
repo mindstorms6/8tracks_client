@@ -50,6 +50,7 @@ public class tracks8Client {
 	private String lastMixID = null;
 	private String lastPlayToken = null;
 	private String baseDownloadDir = null;
+	private Boolean isLoggedIn=false;
 	
 	private enum Actions{
 		MIXES,
@@ -121,14 +122,22 @@ public class tracks8Client {
 				currUser = new JSONObject(result);
 				currToken = currUser.getString("user_token");
 				Log.i(LOGTAG,"Current user token is " + currToken);
+				this.isLoggedIn=true;
 				return true;
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
+				this.isLoggedIn=false;
 				e.printStackTrace();
 			}
 			
 		}
+		this.isLoggedIn=false;
 		return false;
+	}
+	
+	public boolean isLoggedIn(){
+		
+		return this.isLoggedIn();
 	}
 	
 	private HttpResponse simpleGet(String fullURL, Map<String,String> queryParms) throws ClientProtocolException, IOException{
